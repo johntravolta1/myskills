@@ -13,7 +13,7 @@ export function Home() {
 
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState<SkillData[]>([]);
-  const [greetings, setGreeting] = useState('')
+  const [greettings, setGreetting] = useState('')
 
 
   function handleAddNewSkill() {
@@ -37,12 +37,12 @@ export function Home() {
   useEffect(()=> {
     const currentHour = new Date(new Date().getTime() - 3 *60*60*1000).getHours() //utc -3h
     if(currentHour < 12) {
-      setGreeting('Good morning!')
+      setGreetting('Good morning.')
     } else if (currentHour >= 12 && currentHour < 18)
     {
-      setGreeting('Good afternoon!')
+      setGreetting('Good afternoon.')
     } else {
-      setGreeting('Good night!')
+      setGreetting('Good night.')
     }
   }, [])
 
@@ -51,7 +51,7 @@ export function Home() {
       <View style={styles.container}>
         
         <Text testID='welcome' style={styles.title}>Welcome, Fernando</Text>
-        <Text style={styles.greetings}>{greetings}</Text>
+        <Text style={styles.greetings}>{greettings}</Text>
 
         <TextInput
           testID='input-new'
