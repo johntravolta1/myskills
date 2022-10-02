@@ -83,6 +83,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -245,13 +246,27 @@ android {
         debug {
             signingConfig signingConfigs.debug
             // signingConfig signingConfigs.release
+
+            // Note: CodePush updates should not be tested in Debug mode as they are overriden by the RN packager. However, because CodePush checks for updates in all modes, we must supply a key.
+            resValue "string", "CodePushDeploymentKey", '""'
         }
+
+        releaseStaging {
+            resValue "string", "CodePushDeploymentKey", '"f1ErUgbqaj0PfZsuMmUAWHhPj9f1hlvrO_sAu'
+
+            // Note: It is a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
+            // Add the following line if not already there
+            matchingFallbacks = ['release']
+        }
+
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            resValue "string", "CodePushDeploymentKey", '"_B_ptkgHqNzIQ9IEjGCa4yxJvPP1aCvk4-uOM"'
         }
     }
 
